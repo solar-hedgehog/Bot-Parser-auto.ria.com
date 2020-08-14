@@ -47,7 +47,7 @@ def get_content(html):
     return cars
 
 def save_file(items):
-    with open('cars_tab.csv', 'w+', newline='') as file:
+    with open('cars_tab.csv', 'w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file, delimiter=';')
         writer.writerow(['Марка', 'Ссылка', 'Цена в $', 'Цена в UAH', 'Город'])
         for item in items:
