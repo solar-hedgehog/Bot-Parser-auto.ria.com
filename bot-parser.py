@@ -1,8 +1,9 @@
-# coding: utf8
+# -*- coding: utf8 -*-
 import requests
 from bs4 import BeautifulSoup
 import csv
 import telebot
+import codecs
 from telebot import types
 from constant import TOKEN
 bot = telebot.TeleBot(TOKEN)
@@ -48,6 +49,7 @@ def get_content(html):
 
 def save_file(items):
     with open('cars_tab.csv', 'w', newline='', encoding='utf-8') as file:
+        file.write(codecs.BOM_UTF8)
         writer = csv.writer(file, delimiter=';')
         writer.writerow(['Марка', 'Ссылка', 'Цена в $', 'Цена в UAH', 'Город'])
         for item in items:
