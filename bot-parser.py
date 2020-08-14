@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf8
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -45,13 +45,15 @@ def get_content(html):
             'city': item.find('li', class_='item-char view-location').get_text(strip=True)
         })
     return cars
-def save_file(items, p):
+
+def save_file(items):
     with open('cars_tab.csv', 'w', newline='') as file:
-        writer = csv.writer(file, delimiter=';')
+        writer = csv.writer(file, encoding='utf-8', delimiter=';')
         writer.writerow(['Марка', 'Ссылка', 'Цена в $', 'Цена в UAH', 'Город'])
         for item in items:
             writer.writerow([item['title'], item['link'], item['usd_price'], item['uah_price'], item['city']])
     return file
+
 def parse(message, URL, NUMBER):
     html = get_html(URL)
     if html.status_code == 200:
@@ -61,7 +63,7 @@ def parse(message, URL, NUMBER):
             bot.send_message(message.chat.id, f'Парсинг страницы {page} из {NUMBER}...')
             html = get_html(URL, params={'page': page})
             cars.extend(get_content(html.text))
-        save_file(cars, FILE)
+        save_file(cars)
         bot.send_message(message.chat.id, f'Получено {len(cars)} автомобилей')
         file = open('cars_tab.csv', 'rb')
         bot.send_document(message.chat.id, file)
