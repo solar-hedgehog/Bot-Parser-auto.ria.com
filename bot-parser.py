@@ -1,9 +1,7 @@
-# -*- coding: utf8 -*-
 import requests
 from bs4 import BeautifulSoup
 import csv
 import telebot
-import codecs
 from telebot import types
 from constant import TOKEN
 bot = telebot.TeleBot(TOKEN)
@@ -17,6 +15,7 @@ HOST = 'https://auto.ria.com'
 FILE = 'cars_tab.csv'
 URL = ''
 NUMBER= None
+#sys.setdefaultencoding("utf-8")
 def get_html(URL, params=None):
     r = requests.get(URL, headers=HEADERS, params=params)
     return r
@@ -49,7 +48,6 @@ def get_content(html):
 
 def save_file(items):
     with open('cars_tab.csv', 'w', newline='', encoding='utf-8') as file:
-        file.write(codecs.BOM_UTF8)
         writer = csv.writer(file, delimiter=';')
         writer.writerow(['Марка', 'Ссылка', 'Цена в $', 'Цена в UAH', 'Город'])
         for item in items:
