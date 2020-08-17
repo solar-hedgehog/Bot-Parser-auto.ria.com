@@ -49,9 +49,9 @@ def get_content(html):
 def save_file(items):
     with open('cars_tab.csv', 'w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file, delimiter=';')
-        writer.writerow(['Марка', 'Ссылка', 'Цена в $', 'Цена в UAH', 'Город'])
+        writer.writerow(['Mark', 'URL', 'Price in $', 'Price in UAH', 'City'])
         for item in items:
-            writer.writerow([item['title'], item['link'], item['usd_price'], item['uah_price'], item['city']])
+            writer.writerow([item['title'].encode('cp1251').decode('utf-8'), item['link'], item['usd_price'], item['uah_price'], item['city'].encode('cp1251').decode('utf-8')])
     return file
 
 def parse(message, URL, NUMBER):
