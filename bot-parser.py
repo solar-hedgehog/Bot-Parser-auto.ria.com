@@ -5,10 +5,6 @@ import csv
 import telebot
 from telebot import types
 from constant import TOKEN
-import sys
-from importlib import reload
-reload(sys)
-sys.setdefaultencoding("utf-8")
 bot = telebot.TeleBot(TOKEN)
 markup_new = types.ReplyKeyboardMarkup(True, True)
 markup_new.row('Начать парсинг новой страницы')
