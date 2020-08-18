@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import telebot
+import io
 from telebot import types
 from constant import TOKEN
 bot = telebot.TeleBot(TOKEN)
@@ -48,8 +49,8 @@ def get_content(html):
     return cars
 
 def save_file(items):
-    with open('cars_tab.csv', 'w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file, dialect='excel', delimiter=';', encoding="utf-8")
+    with open('cars_tab.csv', 'w', newline='') as file:
+        writer = csv.writer(file, dialect='excel', delimiter=';')
         writer.writerow(['Mark', 'URL', 'Price in $', 'Price in UAH', 'City'])
         for item in items:
             writer.writerow([item['title'], item['link'], item['usd_price'], item['uah_price'], item['city']])
