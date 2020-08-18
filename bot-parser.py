@@ -1,9 +1,14 @@
+# -*- coding: utf-8 -*-
 import requests
 from bs4 import BeautifulSoup
 import csv
 import telebot
 from telebot import types
 from constant import TOKEN
+import sys
+from importlib import reload
+reload(sys)
+sys.setdefaultencoding("utf-8")
 bot = telebot.TeleBot(TOKEN)
 markup_new = types.ReplyKeyboardMarkup(True, True)
 markup_new.row('Начать парсинг новой страницы')
@@ -48,7 +53,7 @@ def get_content(html):
 
 def save_file(items):
     with open('cars_tab.csv', 'w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file, delimiter=';')
+        writer = csv.writer(file, dialect='excel', delimiter=';', encoding="utf-8")
         writer.writerow(['Mark', 'URL', 'Price in $', 'Price in UAH', 'City'])
         for item in items:
             writer.writerow([item['title'], item['link'], item['usd_price'], item['uah_price'], item['city']])
