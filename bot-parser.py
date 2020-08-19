@@ -20,6 +20,7 @@ NUMBER= None
 #sys.setdefaultencoding("utf-8")
 def get_html(URL, params=None):
     r = requests.get(URL, headers=HEADERS, params=params)
+    print(r.encoding)
     return r
 def get_pages_count(html):
     soup = BeautifulSoup(html, 'html.parser')
