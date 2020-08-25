@@ -52,15 +52,11 @@ def save_file(items):
         writer = csv.writer(file, delimiter=';')
         writer.writerow(['Mark', 'URL', 'Price in $', 'Price in UAH', 'City'])
         for item in items:
-            writer.writerow([item['title'], item['link'], item['usd_price'], item['uah_price'], item['city']])
-        pillar = []
-        for item in items:
             try:
-                item = item['city'].encode('cp1251').decode('utf-8')
-                pillar.append(item)
+                item['city'] = item['city'].encode('cp1251').decode('utf-8')
             except UnicodeDecodeError:
-                pillar.append(item['city'])
-        print(pillar)
+                item['city'] = item['city']
+            writer.writerow([item['title'], item['link'], item['usd_price'], item['uah_price'], item['city']])
     return file
 
 def parse(message, URL, NUMBER):
