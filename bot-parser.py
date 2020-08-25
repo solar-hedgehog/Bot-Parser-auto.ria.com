@@ -49,15 +49,17 @@ def get_content(html):
 
 def save_file(items):
     with open('cars_tab.csv', 'w',encoding = 'Windows-1251', newline='') as file:
-        #iconv - f cp1250 - t utf - 8 file - encoded - cp1250.csv > file - encoded - utf8.csv
         writer = csv.writer(file, delimiter=';')
         writer.writerow(['Mark', 'URL', 'Price in $', 'Price in UAH', 'City'])
         for item in items:
             writer.writerow([item['title'], item['link'], item['usd_price'], item['uah_price'], item['city']])
         pillar = []
         for item in items:
-            item = item['city'].encode('cp1251').decode('utf-8')
-            pillar.append(item)
+            try:
+                item = item['city'].encode('cp1251').decode('utf-8')
+                pillar.append(item)
+            except UnicodeDecodeError:
+                pillar.append(item['city'])
         print(pillar)
     return file
 
